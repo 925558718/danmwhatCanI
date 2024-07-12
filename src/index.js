@@ -1,12 +1,16 @@
-import StateMachine from "./lib/StateMachine"
+import machine from "./lib/StateMachine"
 import InitState from "./lib/InitState"
 import ClaimState from "./lib/ClaimState"
+import PayState from "./lib/PayState"
+import CheckRewardState from "./lib/CheckRewardState"
+
 function main() {
     if (!requestScreenCapture()) {
         toast("请求截图失败")
         exit()
     }
-    var machine = new StateMachine([InitState, ClaimState], InitState)
+    machine.config([InitState, ClaimState, PayState, CheckRewardState], InitState)
+    machine.init()
     while (0) {
         machine.currentState.onUpdate()
     }

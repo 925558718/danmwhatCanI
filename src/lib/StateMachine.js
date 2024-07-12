@@ -1,13 +1,16 @@
 class StateMachine {
-    constructor(states, InitState) {
-        InitState.onEnter()
+    constructor() {}
+    init() {
+        this.currentState.onEnter()
+    }
+    config(states, InitState) {
         this.currentState = InitState
         this.map = new Map()
         for (var i = 0; i < states.length; i++) {
             this.map.set(states[i].name, states[i])
         }
     }
-    pushState = function (name) {
+    pushState(name) {
         if (this.map.has(name)) {
             let newState = this.map.get(name)
             this.currentState.onEnd()
@@ -17,4 +20,4 @@ class StateMachine {
     }
 }
 
-export default StateMachine
+export default new StateMachine()
