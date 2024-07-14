@@ -1,19 +1,25 @@
-import State from "./State"
-import StateMachine from "./StateMachine"
+import State from "./State";
+import StateMachine from "./StateMachine";
 
 class PayState extends State {
     constructor(name) {
-        super(name)
+        super(name);
     }
-    onEnd() { }
+    onEnd() {}
     onUpdate() {
-        const path = `/sdcard/check.png`
-        captureScreen(path)
-        const img = images.read(path)
-        const templ = images.read("/sdcard/小图.png")
-        StateMachine.pushState("init")
+        const submitBill = text("提交订单");
+        if (submitBill.exists()) {
+            const { x, y } = pickup(submitBill).center();
+            click(x, y);
+            sleep(3000);
+            back();
+            sleep(3000);
+            StateMachine.pushState("init");
+        }
     }
-    onEnter() { super.onEnter() }
+    onEnter() {
+        super.onEnter();
+    }
 }
 
-export default new PayState("pay")
+export default new PayState("pay");
