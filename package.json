@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "dev": "node script/build.js",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "format": "prettier --config .prettierrc --write ./src/**/*.ts"
   },
   "type": "module",
   "keywords": [],
@@ -23,6 +24,7 @@
     "chalk": "^5.3.0",
     "eslint": "9.x",
     "globals": "^15.8.0",
+    "lodash-es": "^4.17.21",
     "ora": "^8.0.1",
     "prettier": "^3.2.5",
     "rollup": "^4.18.0",
