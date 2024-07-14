@@ -1,8 +1,8 @@
-import machine from "./lib/StateMachine.js";
-import InitState from "./lib/InitState.js";
-import ClaimState from "./lib/ClaimState.js";
-import PayState from "./lib/PayState.js";
-import CheckState from "./lib/CheckState.js";
+import machine from "./lib/StateMachine";
+import InitState from "./lib/InitState";
+import ClaimState from "./lib/ClaimState";
+import PayState from "./lib/PayState";
+import CheckState from "./lib/CheckState";
 
 function main() {
     if (!requestScreenCapture()) {
@@ -11,10 +11,11 @@ function main() {
     }
     machine.config([InitState, ClaimState, PayState, CheckState], InitState);
     machine.init();
+
     while (1) {
-        sleep(1000);
+        sleep(2000);
         machine.currentState.onUpdate();
-        sleep(1000);
+        sleep(2000);
     }
 }
 

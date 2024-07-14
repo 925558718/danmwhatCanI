@@ -3,12 +3,7 @@ import State from "./State";
 import StateMachine from "./StateMachine";
 
 class ClaimState extends State {
-    constructor(name) {
-        super(name);
-    }
-    onEnter() {
-        super.onEnter();
-    }
+    name: string = "claim";
     onEnd() {}
     onUpdate() {
         if (hasAttended()) {
@@ -26,6 +21,9 @@ class ClaimState extends State {
             StateMachine.pushState("check");
         }
     }
+    onEnter() {
+        super.onEnter();
+    }
 }
 
 function clickButton() {
@@ -40,4 +38,4 @@ function hasAttended() {
     return text("参与成功 等待开奖").exists() || text("活动已结束").exists();
 }
 
-export default new ClaimState("claim");
+export default new ClaimState();

@@ -1,8 +1,9 @@
 import clear from "rollup-plugin-clear"
 import { babel } from "@rollup/plugin-babel"
 import terser from "@rollup/plugin-terser"
+import typescript from "@rollup/plugin-typescript"
 export default {
-    input: "./src/index.js",
+    input: "./src/index.ts",
     output: [
         {
             file: "main.js",
@@ -16,7 +17,9 @@ export default {
             // optional, whether clear the directores when rollup recompile on --watch mode.
             watch: true, // default: false
         }),
-        babel({ babelHelpers: "bundled" }),
+        typescript(
+            { tsconfig: "./tsconfig.json" }
+        ),
         terser(),
     ],
 }

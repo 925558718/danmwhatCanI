@@ -2,9 +2,7 @@ import State from "./State";
 import StateMachine from "./StateMachine";
 
 class PayState extends State {
-    constructor(name) {
-        super(name);
-    }
+    name: string = "pay";
     onEnd() {}
     onUpdate() {
         const submitBill = text("提交订单");
@@ -22,4 +20,4 @@ class PayState extends State {
     }
 }
 
-export default new PayState("pay");
+export default new PayState();
