@@ -5,14 +5,15 @@ class StateMachine {
     }
     config(states, InitState) {
         this.currentState = InitState
-        this.map = new Map()
+        this.map = {}
         for (var i = 0; i < states.length; i++) {
-            this.map.set(states[i].name, states[i])
+            this.map[states[i].name]= states[i]
         }
     }
+    
     pushState(name) {
-        if (this.map.has(name)) {
-            let newState = this.map.get(name)
+        if (this.map[name]) {
+            let newState = this.map[name]
             this.currentState.onEnd()
             this.currentState = newState
             this.currentState.onEnter()

@@ -3,7 +3,10 @@ class State {
         this.name = name
     }
     onEnd() {}
-    onEnter() {}
+    onEnter() {
+        console.log(this.name + " enter")
+        sleep(1000)
+    }
     onUpdate() {}
 }
 

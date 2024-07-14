@@ -5,7 +5,7 @@ class PayState extends State {
     constructor(name) {
         super(name)
     }
-    onEnd() {}
+    onEnd() { }
     onUpdate() {
         const path = `/sdcard/check.png`
         captureScreen(path)
@@ -13,7 +13,7 @@ class PayState extends State {
         const templ = images.read("/sdcard/小图.png")
         StateMachine.pushState("init")
     }
-    onEnter() {}
+    onEnter() { super.onEnter() }
 }
 
-export default new CheckRewardState("pay")
+export default new PayState("pay")
