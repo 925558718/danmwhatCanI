@@ -5,15 +5,15 @@
     "source": "src/index.ts",
     "targets": {
         "default": {
-            "distDir": "./dist",
+            "distDir": "./",
             "engines": {
-                "browsers": "> 0.5%, last 2 versions, not dead"
+                "browsers": "since 2015"
             },
             "sourceMap": false
         }
     },
     "scripts": {
-        "watch": "parcel watch",
+        "watch": "node script/build.js",
         "build": "parcel build",
         "format": "prettier --config .prettierrc --write ./src/**/*.ts"
     },

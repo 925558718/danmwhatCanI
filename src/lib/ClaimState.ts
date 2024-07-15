@@ -1,4 +1,3 @@
-import { findPic } from "./findPic";
 import State from "./State";
 import StateMachine from "./StateMachine";
 
@@ -34,8 +33,8 @@ function clickButton() {
     return text("what can i Say");
 }
 
-function hasAttended() {
-    return text("参与成功 等待开奖").exists() || text("活动已结束").exists();
+function hasAttended(): boolean {
+    return existsOne(text("参与成功 等待开奖"), text("活动已结束"));
 }
 
 export default new ClaimState();

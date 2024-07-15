@@ -6,13 +6,11 @@ class InitState extends State {
     name: string = "init";
     onEnd() {}
     async onUpdate() {
-        const udh = id("udh").minWidth(20);
-        if (udh.exists()) {
+        let pos = findPic("pk", 0, [0, 0, device.width / 4, device.height / 4]);
+        console.log(pos);
+
+        if (pos) {
             toast("发现福袋");
-            let rect = pickup(udh).bounds();
-            const height = rect.height();
-            const width = rect.width();
-            let pos = findPic("pk", 255, [rect.left, rect.top, width, height]);
             let res = click(pos.x, pos.y);
             res && StateMachine.pushState("claim");
         } else {
