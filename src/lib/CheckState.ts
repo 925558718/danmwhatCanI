@@ -3,7 +3,9 @@ import StateMachine from "./StateMachine";
 
 class CheckState extends State {
     name: string = "check";
-    onEnd() {}
+    onEnd() {
+        super.onEnd();
+    }
     onUpdate() {
         const noReward = text("我知道了");
         const buyNow = text("立即购买");

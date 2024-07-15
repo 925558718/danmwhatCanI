@@ -1,7 +1,8 @@
 function findPic(pic: string, region?: OmniRegion) {
     const screen = captureScreen();
     const img = images.read(`./assets/${pic}.png`);
-
+    console.log(region);
+    
     const poses = [];
     for (let i = 0; i < 10; i++) {
         const color = images.pixel(img, Math.floor(random() * img.width), Math.floor(random() * img.height));

@@ -1,9 +1,14 @@
+let w = null;
 abstract class AbstractState {
     abstract name: string;
-    abstract onEnd(): void;
+    onEnd() {
+        if (w) {
+            w.close();
+        }
+    }
     onEnter() {
-        toast(this.name + " enter");
         console.log(this.name + " enter");
+        w = floaty.rawWindow(`<text color="#00ffff">当前是${this.name}状态</text>`);
     }
     abstract onUpdate(): void;
 }

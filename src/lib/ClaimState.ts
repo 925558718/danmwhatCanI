@@ -3,7 +3,9 @@ import StateMachine from "./StateMachine";
 
 class ClaimState extends State {
     name: string = "claim";
-    onEnd() {}
+    onEnd() {
+        super.onEnd();
+    }
     onUpdate() {
         if (hasAttended()) {
             toast("已参与 退出");
@@ -11,15 +13,11 @@ class ClaimState extends State {
             StateMachine.pushState("check");
             return;
         }
-        if (text("加入粉丝团").exists()) {
-            const join1 = pickup(text("加入粉丝团")).center();
-            click(join1.x, join1.y);
-            sleep(3000);
-            const join2 = pickup(text("加入粉丝团")).center();
-            click(join2.x, join2.y);
-            sleep(3000);
-            back();
-        }
+        // while (textStartsWith("加入粉丝团").exists()) {
+        //     const join = pickup(textStartsWith("加入粉丝团")).center();
+        //     click(join.x, join.y);
+        //     sleep(3000);
+        // }
         const button = clickButton();
         if (button.exists()) {
             const pos = pickup(button).center();

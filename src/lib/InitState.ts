@@ -4,13 +4,15 @@ import StateMachine from "./StateMachine";
 
 class InitState extends State {
     name: string = "init";
-    onEnd() {}
+    onEnd() {
+        super.onEnd();
+    }
     async onUpdate() {
-        const wraper = id("vq=");
-        if (wraper.exists()) {
-            const comp = pickup(wraper).bounds();
+        const wrapper = id("vq=");
+        const wrapper2 = id('udh')
+        if (wrapper.exists() || wrapper2.exists()) {
+            const comp = pickup(wrapper.exists() ? wrapper : wrapper2).bounds();
             let pos = findPic("pk", [comp.left, comp.top, comp.right - comp.left, comp.bottom - comp.top]);
-            console.log(pos);
             if (pos) {
                 toast("发现福袋");
                 let res = click(pos.x, pos.y);

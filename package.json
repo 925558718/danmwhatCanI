@@ -5,6 +5,7 @@
   "source": "src/index.ts",
   "targets": {
     "default": {
+      
       "distDir": "./",
       "engines": {
         "browsers": "since 2015"
@@ -14,7 +15,7 @@
   },
   "scripts": {
     "watch": "bun script/build.ts",
-    "build": "parcel build",
+    "build": "parcel build --target default --no-cache",
     "format": "prettier --config .prettierrc --write ./src/**/*.ts"
   },
   "type": "module",

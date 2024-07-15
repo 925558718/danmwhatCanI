@@ -3,7 +3,9 @@ import StateMachine from "./StateMachine";
 
 class PayState extends State {
     name: string = "pay";
-    onEnd() {}
+    onEnd() {
+        super.onEnd();
+    }
     onUpdate() {
         const submitBill = text("提交订单");
         if (submitBill.exists()) {
