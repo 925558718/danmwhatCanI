@@ -28,6 +28,3 @@ class CheckState extends State {
 }
 
 export default new CheckState();
-
-//desc('没有抽中福袋')
-//text('我知道了')
