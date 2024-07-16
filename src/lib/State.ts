@@ -1,16 +1,21 @@
-let w = null;
 abstract class AbstractState {
-    abstract name: string;
+    abstract name: StateEnum;
+    private w: org.autojs.autojs.runtime.api.Floaty.JsRawWindow | null;
     onEnd() {
-        if (w) {
-            w.close();
-        }
+        this.w.close();
     }
     onEnter() {
+        this.w = floaty.rawWindow(`<text color="#00ffff">当前是${this.name}状态</text>`);
         console.log(this.name + " enter");
-        w = floaty.rawWindow(`<text color="#00ffff">当前是${this.name}状态</text>`);
     }
     abstract onUpdate(): void;
+}
+
+export enum StateEnum {
+    INIT = "init",
+    CHECK = "check",
+    PAY = "pay",
+    CLAIM = "state",
 }
 
 export default AbstractState;
