@@ -7,12 +7,16 @@ class PayState extends State {
     onUpdate() {
         doListBuilder(3000)
             .next((o1) => {
-                const { x, y } = o1.center();
-                click(x, y);
+                if (o1) {
+                    const { x, y } = o1.center();
+                    click(x, y);
+                }
             }, text("提交订单"))
             .next((o2) => {
-                const { x, y } = o2.center();
-                click(x, y);
+                if (o2) {
+                    const { x, y } = o2.center();
+                    click(x, y);
+                }
             }, text("确认支付"))
             .next(() => {
                 back();

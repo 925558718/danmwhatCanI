@@ -14,7 +14,7 @@ function main() {
 
     while (1) {
         sleep(2000);
-        machine.currentState.onUpdate();
+        machine.currentState?.onUpdate();
         sleep(2000);
     }
 }

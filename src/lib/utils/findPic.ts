@@ -55,28 +55,31 @@ function findSwitchThen(selectors: { selector: Internal.Selector; doIt: (one: Ui
         }
     }
 }
-
+type nextCallbackType = () => void;
 function doListBuilder(timeWait: number) {
-    let arr = [];
+    let arr: nextCallbackType[] = [];
     let valid = true;
     let exec = function () {
         for (let i = 0; i < arr.length; i++) {
             arr[i]();
         }
     };
-    let next = (doIt: (UiObject?: UiObject) => void, selector?: Internal.Selector) => {
-        if (((selector && selector.exists()) || selector == null) && valid) {
-            arr.push(() => {
-                doIt(pickup(selector));
-                sleep(timeWait);
-            });
-        } else {
+    function next(doIt: (UiObject?: UiObject) => void, selector?: Internal.Selector) {
+        if (selector && !selector.exists()) {
             valid = false;
+        } else {
+            if (valid) {
+                arr.push(() => {
+                    selector ? doIt(pickup(selector)) : doIt();
+                    sleep(timeWait);
+                });
+            }
         }
         return { next, exec };
-    };
+    }
     return { next, exec };
 }
+
 export { findPic, findThen, findObjectsThen, findSwitchThen, doListBuilder };
 
 //bounds(18, 156, 135, 216)

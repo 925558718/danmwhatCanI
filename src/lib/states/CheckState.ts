@@ -10,7 +10,7 @@ class CheckState extends State {
             const pos = UiObject.center();
             console.log("没中奖", pos);
             let res = click(pos.x, pos.y);
-            UiObject.click()
+            UiObject.click();
             sleep(10000);
             res && StateMachine.pushState(StateEnum.INIT);
         });
