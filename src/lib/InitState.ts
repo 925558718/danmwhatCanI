@@ -9,7 +9,7 @@ class InitState extends State {
     }
     async onUpdate() {
         const wrapper = id("vq=");
-        const wrapper2 = id('udh')
+        const wrapper2 = id("udh");
         if (wrapper.exists() || wrapper2.exists()) {
             const comp = pickup(wrapper.exists() ? wrapper : wrapper2).bounds();
             let pos = findPic("pk", [comp.left, comp.top, comp.right - comp.left, comp.bottom - comp.top]);

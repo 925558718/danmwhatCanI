@@ -13,31 +13,37 @@ class ClaimState extends State {
             StateMachine.pushState("check");
             return;
         }
-        // while (textStartsWith("加入粉丝团").exists()) {
-        //     const join = pickup(textStartsWith("加入粉丝团")).center();
-        //     click(join.x, join.y);
-        //     sleep(3000);
-        // }
+        if (textStartsWith("加入粉丝团").exists()) {
+            while (textStartsWith("加入粉丝团").exists()) {
+                const join = pickup(textStartsWith("加入粉丝团")).center();
+                click(join.x, join.y);
+                sleep(3000);
+            }
+            back();
+        }
         const button = clickButton();
-        if (button.exists()) {
-            const pos = pickup(button).center();
+
+        if (button) {
+            const pos = button.center();
             console.log(pos);
             click(pos.x, pos.y);
-            sleep(1000);
-            StateMachine.pushState("check");
         }
     }
     onEnter() {
         super.onEnter();
     }
 }
-
 function clickButton() {
-    const a1 = text("一键发表评论");
-    const a2 = text("发送评论 参与抽奖");
-    if (a1.exists()) return a1;
-    if (a2.exists()) return a2;
-    return text("what can i Say");
+    let arr = [
+        text("一键发表评论"),
+        text("发送评论 参与抽奖"),
+        textContains("发送评论"),
+        text("开始观看直播任务 参与抽奖"),
+    ];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].exists()) return arr[i].findOnce();
+    }
+    return null;
 }
 
 function hasAttended(): boolean {
@@ -45,3 +51,7 @@ function hasAttended(): boolean {
 }
 
 export default new ClaimState();
+
+className("com.lynx.tasm.behavior.ui.text.FlattenUIText");
+
+// action('FOCUS', 'SELECT', 'CLEAR_SELECTION', 'ACCESSIBILITY_FOCUS', 'SCROLL_FORWARD', 'SCROLL_BACKWARD', 'SHOW_ON_SCREEN')
