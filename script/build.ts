@@ -7,7 +7,7 @@ const spinner = ora().start();
 console.log(chalk.green("watching file..."));
 watch("src", { recursive: true }, async (event, filename) => {
     const sub = Bun.spawn({
-        cmd: ["pnpm","build"],
+        cmd: ["pnpm", "build"],
         stderr: "pipe",
     });
     const err = await readableStreamToText(sub.stderr);

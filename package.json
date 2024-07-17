@@ -5,7 +5,6 @@
   "source": "src/index.ts",
   "targets": {
     "default": {
-      
       "distDir": "./",
       "engines": {
         "browsers": "since 2015"
