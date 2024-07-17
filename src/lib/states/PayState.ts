@@ -5,6 +5,7 @@ import { doListBuilder } from "../utils/findPic";
 class PayState extends State {
     name = StateEnum.PAY;
     onUpdate() {
+        super.onUpdate();
         doListBuilder(3000)
             .next((o1) => {
                 const { x, y } = o1.center();
