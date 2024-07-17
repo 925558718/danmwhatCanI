@@ -4,6 +4,7 @@ import { doListBuilder, findObjectsThen, findThen } from "../utils/findPic";
 class ClaimState extends State {
     name = StateEnum.CLAIM;
     onUpdate() {
+        super.onUpdate();
         // 刚进来发现在已参与
         findObjectsThen([text("参与成功 等待开奖"), text("活动已结束")], () => {
             toast("已参与 退出");

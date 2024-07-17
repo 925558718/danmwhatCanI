@@ -5,6 +5,7 @@ import { findThen } from "../utils/findPic";
 class CheckState extends State {
     name = StateEnum.CHECK;
     onUpdate() {
+        super.onUpdate();
         findThen(text("我知道了"), (UiObject) => {
             toast("没中奖");
             const pos = UiObject.center();
