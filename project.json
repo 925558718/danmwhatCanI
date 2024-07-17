@@ -1,22 +1,31 @@
 {
-    "assets": [],
+    "assets": ["./assets/pk.png"],
     "encryptLevel": 0,
     "useFeatures": [],
     "launchConfig": {
-      "displaySplash": true,
-      "hideLogs": false,
-      "splashText": "Powered by AutoJs6",
-      "stableMode": false
+        "displaySplash": true,
+        "hideLogs": false,
+        "splashText": "Powered by AutoJs6",
+        "stableMode": false
     },
-    "main": "main.js",
-    "name": "%ProjectName%",
+    "main": "index.js",
+    "name": "douyinfudai",
     "optimization": {
-      "removeOpenCv": false,
-      "unusedResources": false
+        "removeOpenCv": false,
+        "unusedResources": false
     },
-    "packageName": "org.example.my_project",
+    "packageName": "org.example.douyinfudait",
     "scripts": {},
     "versionCode": 1,
     "versionName": "1.0.0",
-    "ignore": ["build", "node_modules", "out"]
-  }
+    "ignore": [
+        "output",
+        "src",
+        "node_modules",
+        "script",
+        "tsconfig.json",
+        "pnpm-lock.yaml",
+        "README.md",
+        "package.json"
+    ]
+}
