@@ -25,6 +25,9 @@ class ClaimState extends State {
             .next(() => {
                 back();
             })
+            .next(()=>{
+                StateMachine.pushState(StateEnum.INIT)
+            })
             .exec();
 
         //点击抽奖 有的会有观看时长限制 有两个步骤 大多数只有一步

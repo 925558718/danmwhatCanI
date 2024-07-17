@@ -13,16 +13,20 @@ abstract class AbstractState {
     }
     onUpdate() {
         // 矫正器
+
+        if (this.name !== StateEnum.INIT && this.name !== StateEnum.CHECK) {
+            findObjectsThen([id("vq="), id("udh")], () => {
+                StateMachine.pushState(StateEnum.INIT);
+            });
+        }
         if (this.name !== StateEnum.CHECK) {
             findObjectsThen([text("我知道了"), text("立即购买")], () => {
                 StateMachine.pushState(StateEnum.CHECK);
             });
         }
 
-        if (this.name !== StateEnum.INIT) {
-            findObjectsThen([id("vq="), id("udh")], () => {
-                StateMachine.pushState(StateEnum.INIT);
-            });
+        if (text("直播已结束").exists()) {
+            StateMachine.pushState(StateEnum.SEARCH);
         }
     }
 }

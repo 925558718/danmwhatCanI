@@ -7,11 +7,11 @@ class SearchState extends State {
     name = StateEnum.SEARCH;
     onUpdate() {
         super.onUpdate();
-        findThen(text("直播已结束"), () => {
-            nextPage();
-            sleep(2000);
+        nextPage();
+        sleep(3000);
+        if (!text("直播已结束").exists()) {
             StateMachine.pushState(StateEnum.INIT);
-        });
+        }
     }
 }
 
