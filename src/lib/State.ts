@@ -14,7 +14,7 @@ abstract class AbstractState {
     onUpdate() {
         // 矫正器
 
-        if (this.name !== StateEnum.INIT && this.name !== StateEnum.CHECK) {
+        if (this.name === StateEnum.CLAIM) {
             findObjectsThen([id("vq="), id("udh")], () => {
                 StateMachine.pushState(StateEnum.INIT);
             });
@@ -25,7 +25,7 @@ abstract class AbstractState {
             });
         }
 
-        if (text("直播已结束").exists()) {
+        if (this.name !== StateEnum.SEARCH && text("直播已结束").exists() && !textContains("说点什么").exists()) {
             StateMachine.pushState(StateEnum.SEARCH);
         }
     }

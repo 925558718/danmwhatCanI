@@ -8,8 +8,8 @@ class SearchState extends State {
     onUpdate() {
         super.onUpdate();
         nextPage();
-        sleep(3000);
-        if (!text("直播已结束").exists()) {
+        sleep(1000)
+        if (textContains("说点什么").exists()) {
             StateMachine.pushState(StateEnum.INIT);
         }
     }

@@ -3,6 +3,7 @@ import InitState from "./lib/states/InitState";
 import ClaimState from "./lib/states/ClaimState";
 import PayState from "./lib/states/PayState";
 import CheckState from "./lib/states/CheckState";
+import SearchState from "lib/states/SearchState";
 import { StateEnum } from "./lib/State";
 
 function main() {
@@ -10,7 +11,7 @@ function main() {
         toast("请求截图失败");
         exit();
     }
-    machine.init([InitState, ClaimState, PayState, CheckState], StateEnum.INIT);
+    machine.init([InitState, ClaimState, PayState, CheckState,SearchState], StateEnum.INIT);
 
     while (1) {
         sleep(2000);
