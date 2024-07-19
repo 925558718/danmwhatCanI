@@ -14,8 +14,6 @@ class ClaimState extends State {
 
         let isExist = findObjectsThen([textStartsWith("加入粉丝团"), textContains("开通店铺会员")], () => {
             //参加粉丝团
-            console.log(21);
-            
             doListBuilder(2000)
                 .next(
                     (UiObject) => {
@@ -49,10 +47,7 @@ class ClaimState extends State {
                 findObjectsThen(
                     [text("一键发表评论"), text("发送评论 参与抽奖"), textContains("发送评论")],
                     (UiObject) => {
-                        console.log(123);
-                        
                         const pos = UiObject.center();
-                        console.log(pos);
                         click(pos.x, pos.y);
                     }
                 );
@@ -60,7 +55,6 @@ class ClaimState extends State {
             .next(() => {
                 findThen(text("开始观看直播任务 参与抽奖"), (UiObject) => {
                     const pos = UiObject.center();
-                    console.log(pos);
                     click(pos.x, pos.y);
                     sleep(1000);
                     back();

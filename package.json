@@ -9,7 +9,7 @@
       "engines": {
         "browsers": "since 2015"
       },
-      "sourceMap": false
+      "sourceMap": true
     }
   },
   "scripts": {
