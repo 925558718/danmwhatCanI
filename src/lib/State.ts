@@ -21,10 +21,11 @@ abstract class AbstractState {
         }
         if (this.name !== StateEnum.CHECK) {
             findObjectsThen([text("我知道了"), text("立即购买")], () => {
+                console.log("worng");
+
                 StateMachine.pushState(StateEnum.CHECK);
             });
         }
-
         if (this.name !== StateEnum.SEARCH && text("直播已结束").exists() && !textContains("说点什么").exists()) {
             StateMachine.pushState(StateEnum.SEARCH);
         }

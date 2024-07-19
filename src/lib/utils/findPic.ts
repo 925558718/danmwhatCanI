@@ -64,24 +64,27 @@ function doListBuilder(timeWait: number) {
         }
     }
 
-    function next<T extends Internal.Selector | undefined>(
-        doIt: (uiObject: SelectorOrUndefined<T>) => void,
-        selector?: T,
-        rejectFn?: () => void
-    ) {
-        if (selector && !selector.exists()) {
-            rejectFn && rejectFn();
-            valid = false;
-        } else if (valid) {
-            arr.push(() => {
-                if (selector) {
-                    doIt(pickup(selector) as SelectorOrUndefined<T>);
-                } else {
+    function next<T extends string | undefined>(doIt: (uiObject: SelectorOrUndefined<T>) => void, selectors?: T[]) {
+        arr.push(() => {
+            let selector = null;
+
+            if (selectors) {
+                for (let a of selectors) {
+                    if (a && textContains(a)?.exists()) {
+                        selector = textContains(a);
+                    }
+                }
+            }
+            if (selector) {
+                doIt(pickup(selector) as SelectorOrUndefined<T>);
+            } else {
+                if (selectors == null) {
                     doIt(null as SelectorOrUndefined<T>);
                 }
-                sleep(timeWait);
-            });
-        }
+            }
+            sleep(timeWait);
+        });
+
         return { next, exec };
     }
 

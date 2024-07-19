@@ -8,11 +8,10 @@ class InitState extends State {
         super.onUpdate();
         // 如果停留了10分钟没有红包 就寻找下一个直播间
         if (StateMachine.getStayTime() > 60 * 1000 * 10) {
-            console.log(1);
-            
             StateMachine.pushState(StateEnum.SEARCH);
             return;
         }
+        
         findObjectsThen([id("vq="), id("udh")], (UiObject) => {
             const comp = UiObject.bounds();
             let pos = findPic("pk", [comp.left, comp.top, comp.right - comp.left, comp.bottom - comp.top]);
