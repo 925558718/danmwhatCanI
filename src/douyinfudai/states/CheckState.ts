@@ -1,6 +1,6 @@
-import State, { StateEnum } from "../State";
-import StateMachine from "../StateMachine";
-import { findThen } from "../utils/findPic";
+import State, { StateEnum } from "../../utils/State";
+import StateMachine from "../../utils/StateMachine";
+import { findThen } from "../../utils/findPic";
 
 class CheckState extends State {
     name = StateEnum.CHECK;

@@ -64,23 +64,23 @@ function doListBuilder(timeWait: number) {
         }
     }
 
-    function next<T extends string | undefined>(doIt: (uiObject: SelectorOrUndefined<T>) => void, selectors?: T[]) {
-        arr.push(() => {
-            let selector = null;
-
-            if (selectors) {
-                for (let a of selectors) {
-                    if (a && textContains(a)?.exists()) {
-                        selector = textContains(a);
-                    }
+    function next<T extends string>(
+        doIt: (uiObject: SelectorOrUndefined<T>) => void,
+        selectors?: T[],
+    ) {
+        let selector = null;
+        if (selectors) {
+            for (let sel of selectors) {
+                if (textContains(sel || 'null')?.exists()) {
+                    selector = textContains(sel)
                 }
             }
+        }
+        arr.push(() => {
             if (selector) {
                 doIt(pickup(selector) as SelectorOrUndefined<T>);
             } else {
-                if (selectors == null) {
-                    doIt(null as SelectorOrUndefined<T>);
-                }
+                doIt(null as SelectorOrUndefined<T>);
             }
             sleep(timeWait);
         });

@@ -2,7 +2,7 @@
   "name": "project-name",
   "version": "1.0.0",
   "description": "project-description",
-  "source": "src/index.ts",
+  "source": ["src/douyinfudai/index.ts","src/quickhand/index.ts"],
   "targets": {
     "default": {
       "distDir": "./",

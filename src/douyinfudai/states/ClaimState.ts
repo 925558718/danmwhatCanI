@@ -1,6 +1,6 @@
-import State, { StateEnum } from "../State";
-import StateMachine from "../StateMachine";
-import { doListBuilder, findObjectsThen, findThen } from "../utils/findPic";
+import State, { StateEnum } from "../../utils/State";
+import StateMachine from "../../utils/StateMachine";
+import { doListBuilder, findObjectsThen, findThen } from "../../utils/findPic";
 class ClaimState extends State {
     name = StateEnum.CLAIM;
     onUpdate() {

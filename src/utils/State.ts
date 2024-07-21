@@ -1,5 +1,5 @@
 import StateMachine from "./StateMachine";
-import { findObjectsThen } from "./utils/findPic";
+import { findObjectsThen } from "./findPic";
 
 abstract class AbstractState {
     abstract name: StateEnum;

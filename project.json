@@ -26,6 +26,7 @@
         "tsconfig.json",
         "pnpm-lock.yaml",
         "README.md",
-        "package.json"
+        "package.json",
+        "bun.lockb"
     ]
 }
