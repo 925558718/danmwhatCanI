@@ -1,6 +1,6 @@
 import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
-import { findThen } from "../../utils/findPic";
+import { doListBuilder, findThen } from "../../utils/findPic";
 
 class CheckState extends State {
     name = StateEnum.CHECK;
@@ -21,6 +21,16 @@ class CheckState extends State {
             const res = click(pos.x, pos.y);
             sleep(3000);
             res && StateMachine.pushState(StateEnum.PAY);
+        });
+        findThen(text("立即领取奖品"), (UI) => {
+            findThen(textContains("已阅读并同意"), (comgress) => {
+                const comp = comgress.bounds();
+                click(comp.left + 5, comp.top + 5);
+            });
+            sleep(200);
+            const { x, y } = UI.center();
+            click(x, y);
+            StateMachine.pushState(StateEnum.PAY);
         });
     }
 }

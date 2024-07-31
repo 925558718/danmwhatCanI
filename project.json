@@ -8,7 +8,7 @@
         "splashText": "Powered by AutoJs6",
         "stableMode": false
     },
-    "main": "index.js",
+    "main": "douyinfudai/index.js",
     "name": "douyinfudai",
     "optimization": {
         "removeOpenCv": false,
