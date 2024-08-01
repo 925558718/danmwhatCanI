@@ -1,4 +1,3 @@
-type SelectorOrUndefined<T> = T extends undefined ? null : UiObject;
 type nextCallbackType = () => void;
 
 function findPic(pic: string, region?: OmniRegion) {
@@ -14,7 +13,7 @@ function findPic(pic: string, region?: OmniRegion) {
         if (p) poses.push(p);
     }
 
-    if (poses.length >= 5) {
+    if (poses.length >= 3) {
         let { x, y } = poses[0];
         for (let i = 1; i < poses.length; i++) {
             x = (poses[i].x + x) / 2;
@@ -56,37 +55,19 @@ function findSwitchThen(selectors: { selector: Internal.Selector; doIt: (one: Ui
 
 function doListBuilder(timeWait: number) {
     const arr: nextCallbackType[] = [];
+    let dot = true
     function exec() {
         for (const fn of arr) {
             fn();
         }
     }
 
-    function next<T extends string>(
-        doIt: (uiObject: SelectorOrUndefined<T>) => void,
-        selectors?: T[],
-    ) {
-        let selector = null;
-        let isExist = false
-        if (selectors) {
-            for (let sel of selectors) {
-                if (textContains(sel || 'null')?.exists()) {
-                    selector = textContains(sel)
-                    isExist = true
-                }
-            }
-        }
-        if(selectors && selector) {
-            arr.push(()=>{
-                doIt(pickup(selector) as SelectorOrUndefined<T>);
-                sleep(timeWait)
-            })
-        }
-        if(!selectors) {
-            arr.push(()=>{
-                doIt(null as SelectorOrUndefined<T>);
-                sleep(timeWait)
-            })
+    function next(doIt: () => boolean) {
+        if (dot) {
+            arr.push(() => {
+                dot=doIt();
+                sleep(timeWait);
+            });
         }
 
         return { next, exec };
@@ -95,4 +76,13 @@ function doListBuilder(timeWait: number) {
     return { next, exec };
 }
 
-export { findPic, findThen, findObjectsThen, findSwitchThen, doListBuilder };
+function findObjects(selectors: Internal.Selector[]) {
+    for (const selector of selectors) {
+        if (selector.exists()) {
+            return pickup(selector)
+        }
+    }
+    return null;
+}
+
+export { findPic, findThen, findObjectsThen, findSwitchThen, doListBuilder,findObjects };

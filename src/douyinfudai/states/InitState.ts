@@ -7,13 +7,13 @@ class InitState extends State {
     async onUpdate() {
         super.onUpdate();
         // 如果停留了10分钟没有红包 就寻找下一个直播间
-        if (StateMachine.getStayTime() > 60 * 1000 * 10) {
+        if (StateMachine.getStayTime() > 70) {
             StateMachine.pushState(StateEnum.SEARCH);
             return;
         }
-        findObjectsThen([id("vq+"), id("vq="), id("udh"),id("vqg"),id("vr=")], (UiObject) => {
+        findObjectsThen([id("vq+"), id("vq="), id("udh"), id("vqg"),id("vr=")], (UiObject) => {
             const comp = UiObject.bounds();
-            let pos = findPic("pk", [comp.left, comp.top, comp.right - comp.left, comp.bottom - comp.top]); 
+            let pos = findPic("pk", [comp.left, comp.top, comp.right - comp.left, comp.bottom - comp.top]);
             if (pos) {
                 toast("发现福袋");
                 let res = click(pos.x, pos.y);

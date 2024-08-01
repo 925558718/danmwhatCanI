@@ -1,8 +1,7 @@
 import StateMachine from "./StateMachine";
-import { findObjectsThen } from "./findPic";
 
 abstract class AbstractState {
-    abstract name: StateEnum;
+    abstract name: string;
     private w: org.autojs.autojs.runtime.api.Floaty.JsRawWindow | null | undefined;
     onEnd() {
         this.w?.close();
@@ -12,25 +11,7 @@ abstract class AbstractState {
         console.log(this.name + " enter");
     }
     onUpdate() {
-        // 矫正器
-
-        if(StateMachine.getStayTime() % (60 * 1000 * 5)===0) {
-            swipe(100, 100, 101, 101, 10);
-        }
-
-        if (this.name === StateEnum.CLAIM) {
-            findObjectsThen([id("vq="), id("udh"),id("vr=")], () => {
-                StateMachine.pushState(StateEnum.INIT);
-            });
-        }
-        if (this.name !== StateEnum.CHECK) {
-            findObjectsThen([text("我知道了"), text("立即购买")], () => {
-                StateMachine.pushState(StateEnum.CHECK);
-            });
-        }
-        if (this.name !== StateEnum.SEARCH && text("直播已结束").exists() && !textContains("说点什么").exists()) {
-            StateMachine.pushState(StateEnum.SEARCH);
-        }
+        StateMachine.execHooks()
     }
 }
 

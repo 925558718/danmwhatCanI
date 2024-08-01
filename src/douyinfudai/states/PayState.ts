@@ -1,52 +1,58 @@
 import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
-import { doListBuilder, findThen } from "../../utils/findPic";
+import { doListBuilder, findObjects, findThen } from "../../utils/findPic";
 
 class PayState extends State {
     name = StateEnum.PAY;
     onUpdate() {
         doListBuilder(3000)
-            .next(
-                (o1) => {
-                    if (o1) {
-                        const { x, y } = o1.center();
-                        click(x, y);
-                    }
-                },
-                ["提交订单"]
-            )
-            .next(
-                (o2) => {
-                    if (o2) {
-                        const { x, y } = o2.center();
-                        click(x, y);
-                    }
-                },
-                ["确认支付"]
-            )
             .next(() => {
-                back();
+                const UiObject = findObjects([textContains("提交订单")]);
+                if (UiObject) {
+                    const { x, y } = UiObject.center();
+                    click(x, y);
+                    return true;
+                }
+                return false;
+            })
+            .next(() => {
+                const UiObject = findObjects([textContains("确认支付")]);
+                if (UiObject) {
+                    const { x, y } = UiObject.center();
+                    click(x, y);
+                    return true;
+                }
+                return false;
+            })
+            .next(() => {
+                return back();
             })
             .next(() => {
                 StateMachine.pushState(StateEnum.INIT);
+                return true;
             })
             .exec();
         doListBuilder(3000)
             .next(
-                (UI) => {
-                    const { x, y } = UI.center();
-                    click(x, y);
-                },
-                ["领取奖品"]
+                () => {
+                    const UiObject = findObjects([textContains("确认支付")]);
+                    if (UiObject) {
+                        const { x, y } = UiObject.center();
+                        click(x, y);
+                        return true;
+                    }
+                    return false;
+                }
             )
             .next(() => {
-                back();
+                return back();
             })
             .next(() => {
-                back();
+                return back();
             })
             .next(() => {
                 StateMachine.pushState(StateEnum.INIT);
+                return true;
             })
             .exec();
     }
