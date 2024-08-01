@@ -56,8 +56,6 @@ function findSwitchThen(selectors: { selector: Internal.Selector; doIt: (one: Ui
 
 function doListBuilder(timeWait: number) {
     const arr: nextCallbackType[] = [];
-    let valid = true;
-
     function exec() {
         for (const fn of arr) {
             fn();
@@ -69,21 +67,27 @@ function doListBuilder(timeWait: number) {
         selectors?: T[],
     ) {
         let selector = null;
+        let isExist = false
         if (selectors) {
             for (let sel of selectors) {
                 if (textContains(sel || 'null')?.exists()) {
                     selector = textContains(sel)
+                    isExist = true
                 }
             }
         }
-        arr.push(() => {
-            if (selector) {
+        if(selectors && selector) {
+            arr.push(()=>{
                 doIt(pickup(selector) as SelectorOrUndefined<T>);
-            } else {
+                sleep(timeWait)
+            })
+        }
+        if(!selectors) {
+            arr.push(()=>{
                 doIt(null as SelectorOrUndefined<T>);
-            }
-            sleep(timeWait);
-        });
+                sleep(timeWait)
+            })
+        }
 
         return { next, exec };
     }

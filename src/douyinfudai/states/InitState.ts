@@ -11,7 +11,7 @@ class InitState extends State {
             StateMachine.pushState(StateEnum.SEARCH);
             return;
         }
-        findObjectsThen([id("vq+"), id("vq="), id("udh"),id("vqg")], (UiObject) => {
+        findObjectsThen([id("vq+"), id("vq="), id("udh"),id("vqg"),id("vr=")], (UiObject) => {
             const comp = UiObject.bounds();
             let pos = findPic("pk", [comp.left, comp.top, comp.right - comp.left, comp.bottom - comp.top]); 
             if (pos) {

@@ -1,7 +1,6 @@
 import { nextPage } from "@/utils/action";
 import State, { StateEnum } from "@/utils/State";
 import StateMachine from "@/utils/StateMachine";
-import { doListBuilder, findThen } from "@/utils/findPic";
 
 class SearchState extends State {
     name = StateEnum.SEARCH;

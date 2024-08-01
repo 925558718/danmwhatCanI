@@ -14,15 +14,17 @@ abstract class AbstractState {
     onUpdate() {
         // 矫正器
 
+        if(StateMachine.getStayTime() % (60 * 1000 * 5)===0) {
+            swipe(100, 100, 101, 101, 10);
+        }
+
         if (this.name === StateEnum.CLAIM) {
-            findObjectsThen([id("vq="), id("udh")], () => {
+            findObjectsThen([id("vq="), id("udh"),id("vr=")], () => {
                 StateMachine.pushState(StateEnum.INIT);
             });
         }
         if (this.name !== StateEnum.CHECK) {
             findObjectsThen([text("我知道了"), text("立即购买")], () => {
-                console.log("worng");
-
                 StateMachine.pushState(StateEnum.CHECK);
             });
         }
