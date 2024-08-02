@@ -3,7 +3,7 @@ import { StateEnum } from "../utils/State";
 
 function main() {
     if (!requestScreenCapture()) {
-        toast("请求截图失败");
+        console.log("请求截图失败");
         exit();
     }
 }

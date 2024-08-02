@@ -7,7 +7,7 @@ class ClaimState extends State {
         super.onUpdate();
         // 刚进来发现在已参与
         let Done = findObjectsThen([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")], () => {
-            toast("已参与 退出");
+            console.log("已参与 退出");
             back();
             StateMachine.pushState(StateEnum.CHECK);
         });

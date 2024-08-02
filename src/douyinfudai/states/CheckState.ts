@@ -7,7 +7,7 @@ class CheckState extends State {
     onUpdate() {
         super.onUpdate();
         findThen(text("我知道了"), (UiObject) => {
-            toast("没中奖");
+            console.log("没中奖");
             const pos = UiObject.center();
             console.log("没中奖", pos);
             let res = click(pos.x, pos.y);
@@ -16,7 +16,7 @@ class CheckState extends State {
             res && StateMachine.pushState(StateEnum.INIT);
         });
         findThen(text("立即购买"), (UiObject) => {
-            toast("中奖了");
+            console.log("中奖了");
             const pos = UiObject.center();
             const res = click(pos.x, pos.y);
             sleep(3000);
