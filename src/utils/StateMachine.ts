@@ -5,6 +5,7 @@ class StateMachine {
     map: Map<StateEnum, State>;
     private count: number = 0;
     private hooks: (() => void)[] = [];
+    private startTime = 0;
     constructor() {
         this.currentState = null;
         this.map = new Map();
@@ -19,6 +20,7 @@ class StateMachine {
     pushState(name: StateEnum) {
         if (this.map.has(name)) {
             this.count = 0;
+            this.startTime = Date.now();
             let newState = this.map.get(name) as State;
             this.currentState?.onEnd();
             this.currentState = newState;
@@ -26,6 +28,10 @@ class StateMachine {
         }
     }
     getStayTime() {
+        return Date.now() - this.startTime;
+    }
+
+    getCountTime() {
         return this.count;
     }
     addHooks(fn: () => void) {

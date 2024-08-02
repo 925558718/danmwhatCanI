@@ -6,6 +6,11 @@ class CheckState extends State {
     name = StateEnum.CHECK;
     onUpdate() {
         super.onUpdate();
+        if (StateMachine.getStayTime() > 1000 * 60 * 20) {
+            StateMachine.pushState(StateEnum.INIT);
+            return;
+        }
+
         findThen(text("我知道了"), (UiObject) => {
             console.log("没中奖");
             const pos = UiObject.center();

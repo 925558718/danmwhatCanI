@@ -7,7 +7,7 @@ class InitState extends State {
     async onUpdate() {
         super.onUpdate();
         // 如果停留了10分钟没有红包 就寻找下一个直播间
-        if (StateMachine.getStayTime() > 70) {
+        if (StateMachine.getStayTime() > 1000 * 60 * 3) {
             StateMachine.pushState(StateEnum.SEARCH);
             return;
         }
@@ -20,7 +20,7 @@ class InitState extends State {
                 res && StateMachine.pushState(StateEnum.CLAIM);
             } else {
                 console.log("当前没有福袋");
-                sleep(60 * 1000);
+                sleep(30 * 1000);
             }
         });
     }
