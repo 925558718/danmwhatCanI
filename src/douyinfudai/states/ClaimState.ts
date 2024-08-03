@@ -11,7 +11,7 @@ class ClaimState extends State {
             back();
             StateMachine.pushState(StateEnum.CHECK);
         });
-        if(Done) return
+        if (Done) return
         if (!text("加入粉丝团（1钻）").exists()) {
             let isExist = findObjectsThen([textStartsWith("加入粉丝团"), textContains("开通店铺会员")], () => {
                 //参加粉丝团
@@ -45,14 +45,22 @@ class ClaimState extends State {
         }
 
         //点击抽奖 有的会有观看时长限制 有两个步骤 大多数只有一步
-        doListBuilder(2000)
+        doListBuilder(500)
             .next(() => {
-                const UiObject = findObjects([
-                    text("一键发表评论"),
-                    text("发送评论 参与抽奖"),
-                    text("参与抽奖"),
-                    textContains("发送评论").clickable(),
-                ]);
+                let UI = findObjects([textContains("参考价值")])
+                if (UI) {
+                    const content = UI?.text()
+                    const idx = content.indexOf("参")
+                    if (idx > -1) {
+                        let price = content.substring(1, idx)
+                        console.log(price)
+                        return +price > 1
+                    }
+                }
+                return false
+            })
+            .next(() => {
+                const UiObject = findObjects([clickable().childCount(0).indexInParent(49).depth(15)]);
                 const pos = UiObject?.center();
                 if (pos) {
                     click(pos?.x, pos?.y);

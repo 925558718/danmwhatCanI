@@ -6,7 +6,7 @@ class CheckState extends State {
     name = StateEnum.CHECK;
     onUpdate() {
         super.onUpdate();
-        if (StateMachine.getStayTime() > 1000 * 60 * 20) {
+        if (StateMachine.getStayTime() > 1000 * 60 * 15) {
             StateMachine.pushState(StateEnum.INIT);
             return;
         }
@@ -17,7 +17,6 @@ class CheckState extends State {
             console.log("没中奖", pos);
             let res = click(pos.x, pos.y);
             UiObject.click();
-            sleep(10000);
             res && StateMachine.pushState(StateEnum.INIT);
         });
         findThen(text("立即购买"), (UiObject) => {

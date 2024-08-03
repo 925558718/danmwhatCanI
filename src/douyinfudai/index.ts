@@ -13,13 +13,17 @@ function main() {
     machine.addHooks(() => {
         //心跳检测
         if (machine.getCountTime() % 30 === 0) {
-            swipe(100, 100, 101, 101, 10);
+            let deviceWidth = device.width / 2
+            swipe(deviceWidth, 100, deviceWidth + 1, 101, 10);
         }
     });
     machine.addHooks(() => {
         // 矫正器
         let name = machine.currentState?.name;
 
+        findObjectsThen([text("我知道了")], (ui) => {
+            click(ui.center().x, ui.center().y);
+        },)
         if (text("直播已结束").exists()) {
             machine.pushState(StateEnum.SEARCH);
             return;
