@@ -1,6 +1,7 @@
+import { nextPage } from "@/utils/action";
 import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
-import { doListBuilder, findObjects, findObjectsThen, findThen } from "../../utils/findPic";
+import { doListBuilder, findObjects, findObjectsThen } from "../../utils/findPic";
 class ClaimState extends State {
     name = StateEnum.CLAIM;
     onUpdate() {
@@ -53,15 +54,20 @@ class ClaimState extends State {
                     const idx = content.indexOf("参")
                     if (idx > -1) {
                         let price = content.substring(1, idx)
-                        console.log(price)
-                        return +price > 1
+                        //console.log(price,+price<1)
+                        return +price < 1
                     }
                 }
+                back()
+                nextPage()
+                StateMachine.pushState(StateEnum.INIT);
                 return false
             })
             .next(() => {
-                const UiObject = findObjects([clickable().childCount(0).indexInParent(49).depth(15)]);
+                const UiObject = findObjects([clickable().childCount(0).depth(15).className('com.lynx.tasm.behavior.ui.view.UIView')]);
                 const pos = UiObject?.center();
+                console.log(pos);
+
                 if (pos) {
                     click(pos?.x, pos?.y);
                 }
@@ -69,37 +75,39 @@ class ClaimState extends State {
                 return UiObject !== null;
             })
             .next(() => {
-                findThen(textContains("开始观看直播任务"), (UiObject) => {
-                    const pos = UiObject.center();
+                let look = findObjects([textContains("开始观看直播任务")])
+                if (look) {
+                    const pos = look.center();
                     click(pos.x, pos.y);
                     sleep(1000);
                     back();
-                });
-                doListBuilder(1000)
-                    .next(() => {
-                        const UiObject = findObjects([text("转发直播间 参与抽奖")]);
-                        const pos = UiObject?.center();
-                        if (pos) {
-                            click(pos?.x, pos?.y);
-                        }
-                        return UiObject !== null;
-                    })
-                    .next(() => {
-                        const UiObject = findObjects([text("嘎嘎你呗")]);
-                        const pos = UiObject?.center();
-                        if (pos) {
-                            click(pos?.x, pos?.y);
-                        }
-                        return UiObject !== null;
-                    })
-                    .next(() => {
-                        const UiObject = findObjects([textContains("发送")]);
-                        const pos = UiObject?.center();
-                        if (pos) {
-                            click(pos?.x, pos?.y);
-                        }
-                        return UiObject !== null;
-                    });
+                } else {
+                    doListBuilder(1000)
+                        .next(() => {
+                            const UiObject = findObjects([text("转发直播间 参与抽奖")]);
+                            const pos = UiObject?.center();
+                            if (pos) {
+                                click(pos?.x, pos?.y);
+                            }
+                            return UiObject !== null;
+                        })
+                        .next(() => {
+                            const UiObject = findObjects([text("嘎嘎你呗")]);
+                            const pos = UiObject?.center();
+                            if (pos) {
+                                click(pos?.x, pos?.y);
+                            }
+                            return UiObject !== null;
+                        })
+                        .next(() => {
+                            const UiObject = findObjects([textContains("发送")]);
+                            const pos = UiObject?.center();
+                            if (pos) {
+                                click(pos?.x, pos?.y);
+                            }
+                            return UiObject !== null;
+                        });
+                }
                 return true;
             })
             .next(() => {

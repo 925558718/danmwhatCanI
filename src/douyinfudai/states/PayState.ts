@@ -1,6 +1,6 @@
 import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
-import { doListBuilder, findObjects, findThen } from "../../utils/findPic";
+import { doListBuilder, findObjects } from "../../utils/findPic";
 
 class PayState extends State {
     name = StateEnum.PAY;

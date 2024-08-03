@@ -31,9 +31,9 @@ function main() {
     });
 
     while (1) {
-        sleep(2000);
+        sleep(500);
         machine.currentState?.onUpdate();
-        sleep(2000);
+        sleep(500);
     }
 }
 

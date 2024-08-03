@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "description": "project-description",
     "source": [
-        "src/douyinfudai/index.ts",
-        "src/quickhand/index.ts"
+        "src/douyinfudai/index.ts"
     ],
     "targets": {
         "default": {

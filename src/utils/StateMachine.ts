@@ -19,6 +19,7 @@ class StateMachine {
 
     pushState(name: StateEnum) {
         if (this.map.has(name)) {
+            console.log(`${this.currentState?.name} leave ${name} Enter`)
             this.count = 0;
             this.startTime = Date.now();
             let newState = this.map.get(name) as State;

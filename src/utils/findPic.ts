@@ -35,24 +35,6 @@ function findObjectsThen(selectors: Internal.Selector[], doIt: (one: UiObject) =
     return false;
 }
 
-function findThen(selector: Internal.Selector, doIt: (one: UiObject) => void): boolean {
-    const res = selector.exists();
-    if (res) {
-        doIt(pickup(selector));
-    }
-    return res;
-}
-
-function findSwitchThen(selectors: { selector: Internal.Selector; doIt: (one: UiObject) => void }[]) {
-    for (const { selector, doIt } of selectors) {
-        if (selector.exists()) {
-            doIt(pickup(selector));
-            return true;
-        }
-    }
-    return false;
-}
-
 function doListBuilder(timeWait: number) {
     const arr: nextCallbackType[] = [];
     let dot = true
@@ -63,12 +45,14 @@ function doListBuilder(timeWait: number) {
     }
 
     function next(doIt: () => boolean) {
-        if (dot) {
-            arr.push(() => {
-                dot=doIt();
+
+        arr.push(() => {
+            if (dot) {
+                dot &&= doIt();
                 sleep(timeWait);
-            });
-        }
+            }
+        });
+
 
         return { next, exec };
     }
@@ -85,4 +69,4 @@ function findObjects(selectors: Internal.Selector[]) {
     return null;
 }
 
-export { findPic, findThen, findObjectsThen, findSwitchThen, doListBuilder,findObjects };
+export { findPic, findObjectsThen, doListBuilder, findObjects };

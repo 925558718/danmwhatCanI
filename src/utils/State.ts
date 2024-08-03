@@ -4,7 +4,6 @@ abstract class AbstractState {
     abstract name: string;
     onEnd() {}
     onEnter() {
-        console.log(`${this.name} Enter`)
     }
     onUpdate() {
         StateMachine.execHooks();
