@@ -1,4 +1,4 @@
-import { nextPage } from "@/utils/action";
+import { nextPage, randomClick } from "@/utils/action";
 import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
 import { doListBuilder, findObjects, findObjectsThen } from "../../utils/findPic";
@@ -7,12 +7,14 @@ class ClaimState extends State {
     onUpdate() {
         super.onUpdate();
         // 刚进来发现在已参与
-        let Done = findObjectsThen([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")], () => {
+        let UI = findObjects([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")])
+        if (UI) {
             console.log("已参与 退出");
             back();
             StateMachine.pushState(StateEnum.CHECK);
-        });
-        if (Done) return
+            return
+        }
+
         if (!text("加入粉丝团（1钻）").exists()) {
             let isExist = findObjectsThen([textStartsWith("加入粉丝团"), textContains("开通店铺会员")], () => {
                 //参加粉丝团
@@ -54,7 +56,6 @@ class ClaimState extends State {
                     const idx = content.indexOf("参")
                     if (idx > -1) {
                         let price = content.substring(1, idx)
-                        //console.log(price,+price<1)
                         return +price < 1
                     }
                 }
@@ -64,14 +65,24 @@ class ClaimState extends State {
                 return false
             })
             .next(() => {
-                const UiObject = findObjects([clickable().childCount(0).depth(15).className('com.lynx.tasm.behavior.ui.view.UIView')]);
+                const UiObject = findObjects([
+                    text("一键发表评论"),
+                    text("发送评论 参与抽奖"),
+                    text("参与抽奖"),
+                    textContains("发送评论").clickable(),
+                ]);
                 const pos = UiObject?.center();
-                console.log(pos);
-
+                console.log(pos, "参与抽奖");
                 if (pos) {
-                    click(pos?.x, pos?.y);
+                    randomClick(pos.x, pos.y);
                 }
-
+                const joined = findObjects([
+                    text("参与成功 等待抽奖"),
+                ]);
+                if (joined) {
+                    StateMachine.pushState(StateEnum.CHECK);
+                    return false
+                }
                 return UiObject !== null;
             })
             .next(() => {
@@ -119,3 +130,4 @@ class ClaimState extends State {
 }
 
 export default new ClaimState();
+//参与成功 等待开奖

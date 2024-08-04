@@ -9,3 +9,12 @@ export function nextPage() {
     swipe(swipeX, startY, swipeX, endY, duration);
     sleep(500);
 }
+
+
+export function randomClick(x:number,y:number) {
+    sleep(100);
+    let clickx = getRandomWith(x-10,x+10);
+    let clicky = getRandomWith(y-10,y+10);
+    click(clickx, clicky);
+    sleep(100);
+}

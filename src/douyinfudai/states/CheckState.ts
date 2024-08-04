@@ -14,17 +14,17 @@ class CheckState extends State {
         if (Iknow) {
             console.log("没中奖");
             const pos = Iknow.center();
-            let res = click(pos.x, pos.y);
-            res && StateMachine.pushState(StateEnum.INIT);
+            click(pos.x, pos.y);
+            StateMachine.pushState(StateEnum.INIT);
         }
 
         const buy = findObjects([text("立即购买")])
         if (buy) {
             console.log("中奖了");
             const pos = buy.center();
-            const res = click(pos.x, pos.y);
+            click(pos.x, pos.y);
             sleep(3000);
-            res && StateMachine.pushState(StateEnum.PAY);
+            StateMachine.pushState(StateEnum.PAY);
         }
 
         const reward = findObjects([text("立即购买")])
