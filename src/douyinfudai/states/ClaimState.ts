@@ -15,11 +15,10 @@ class ClaimState extends State {
             return;
         }
 
-        let NO = findObjects([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")]);
-        if (UI) {
-            console.log("已参与");
+        let needMoney = findObjects([text("加入粉丝团（1钻）")]);
+        if (needMoney) {
             back();
-            StateMachine.pushState(StateEnum.CHECK);
+            StateMachine.pushState(StateEnum.SEARCH);
             return;
         }
 
