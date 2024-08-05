@@ -7,12 +7,20 @@ class ClaimState extends State {
     onUpdate() {
         super.onUpdate();
         // 刚进来发现在已参与
-        let UI = findObjects([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")])
+        let UI = findObjects([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")]);
         if (UI) {
-            console.log("已参与 退出");
+            console.log("已参与");
             back();
             StateMachine.pushState(StateEnum.CHECK);
-            return
+            return;
+        }
+
+        let NO = findObjects([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")]);
+        if (UI) {
+            console.log("已参与");
+            back();
+            StateMachine.pushState(StateEnum.CHECK);
+            return;
         }
 
         if (!text("加入粉丝团（1钻）").exists()) {
@@ -50,19 +58,19 @@ class ClaimState extends State {
         //点击抽奖 有的会有观看时长限制 有两个步骤 大多数只有一步
         doListBuilder(500)
             .next(() => {
-                let UI = findObjects([textContains("参考价值")])
+                let UI = findObjects([textContains("参考价值")]);
                 if (UI) {
-                    const content = UI?.text()
-                    const idx = content.indexOf("参")
+                    const content = UI?.text();
+                    const idx = content.indexOf("参");
                     if (idx > -1) {
-                        let price = content.substring(1, idx)
-                        return +price < 1
+                        let price = content.substring(1, idx);
+                        return +price < 1;
                     }
                 }
-                back()
-                nextPage()
+                back();
+                nextPage();
                 StateMachine.pushState(StateEnum.INIT);
-                return false
+                return false;
             })
             .next(() => {
                 const UiObject = findObjects([
@@ -74,19 +82,19 @@ class ClaimState extends State {
                 const pos = UiObject?.center();
                 console.log(pos, "参与抽奖");
                 if (pos) {
-                    randomClick(pos.x, pos.y);
+                    let res = randomClick(pos.x, pos.y);
+                    console.log("是否点中:" + res);
                 }
-                const joined = findObjects([
-                    text("参与成功 等待抽奖"),
-                ]);
+                const joined = findObjects([text("参与成功 等待抽奖")]);
                 if (joined) {
+                    console.log("参与了")
                     StateMachine.pushState(StateEnum.CHECK);
-                    return false
+                    return false;
                 }
                 return UiObject !== null;
             })
             .next(() => {
-                let look = findObjects([textContains("开始观看直播任务")])
+                let look = findObjects([textContains("开始观看直播任务")]);
                 if (look) {
                     const pos = look.center();
                     click(pos.x, pos.y);

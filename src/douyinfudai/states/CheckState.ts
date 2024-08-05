@@ -1,3 +1,4 @@
+import { randomClick } from "@/utils/action";
 import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
 import { findObjects } from "../../utils/findPic";
@@ -14,7 +15,7 @@ class CheckState extends State {
         if (Iknow) {
             console.log("没中奖");
             const pos = Iknow.center();
-            click(pos.x, pos.y);
+            randomClick(pos.x,pos.y)
             StateMachine.pushState(StateEnum.INIT);
         }
 
