@@ -17,7 +17,7 @@ class ClaimState extends State {
 
         let needMoney = findObjects([text("加入粉丝团（1钻）")]);
         if (needMoney) {
-            back();
+          back();
             StateMachine.pushState(StateEnum.SEARCH);
             return;
         }

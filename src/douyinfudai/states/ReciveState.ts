@@ -2,12 +2,12 @@ import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
 import { doListBuilder, findObjects } from "../../utils/findPic";
 
-class PayState extends State {
-    name = StateEnum.PAY;
+class ReceiveState extends State {
+    name = StateEnum.RECEIVE;
     onUpdate() {
         doListBuilder(3000)
             .next(() => {
-                const UiObject = findObjects([textContains("提交订单")]);
+                const UiObject = findObjects([textContains("领取奖品")]);
                 if (UiObject) {
                     const { x, y } = UiObject.center();
                     click(x, y);
@@ -16,11 +16,9 @@ class PayState extends State {
                 return false;
             })
             .next(() => {
-                const UiObject = findObjects([textContains("确认支付")]);
+                const UiObject = findObjects([textContains("购买成功")]);
                 if (UiObject) {
-                    const { x, y } = UiObject.center();
-                    click(x, y);
-                    return true;
+                    return back();
                 }
                 return false;
             })
@@ -35,4 +33,4 @@ class PayState extends State {
     }
 }
 
-export default new PayState();
+export default new ReceiveState();

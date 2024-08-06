@@ -11,15 +11,15 @@ class CheckState extends State {
             StateMachine.pushState(StateEnum.INIT);
             return;
         }
-        const Iknow = findObjects([text("我知道了")])
+        const Iknow = findObjects([text("我知道了")]);
         if (Iknow) {
             console.log("没中奖");
             const pos = Iknow.center();
-            randomClick(pos.x,pos.y)
+            randomClick(pos.x, pos.y);
             StateMachine.pushState(StateEnum.INIT);
         }
 
-        const buy = findObjects([text("立即购买")])
+        const buy = findObjects([text("立即购买")]);
         if (buy) {
             console.log("中奖了");
             const pos = buy.center();
@@ -28,17 +28,17 @@ class CheckState extends State {
             StateMachine.pushState(StateEnum.PAY);
         }
 
-        const reward = findObjects([text("立即购买")])
+        const reward = findObjects([text("立即领取奖品")]);
         if (reward) {
-            let agree = findObjects([textContains("已阅读并同意")])
+            let agree = findObjects([textContains("已阅读并同意")]);
             if (agree) {
                 const comp = agree.bounds();
                 click(comp.left + 5, comp.top + 5);
             }
-            sleep(200);
+            sleep(500);
             const { x, y } = reward.center();
             click(x, y);
-            StateMachine.pushState(StateEnum.PAY);
+            StateMachine.pushState(StateEnum.RECEIVE);
         }
     }
 }

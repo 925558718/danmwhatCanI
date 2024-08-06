@@ -6,10 +6,10 @@ import CheckState from "./states/CheckState";
 import { StateEnum } from "../utils/State";
 import { findObjectsThen } from "@/utils/findPic";
 import SearchState from "./states/SearchState";
-
+import ReciveState from "./states/ReciveState";
 function main() {
     setOptions();
-    machine.init([InitState, ClaimState, PayState, CheckState, SearchState], StateEnum.INIT);
+    machine.init([InitState, ClaimState, PayState, CheckState, SearchState, ReciveState], StateEnum.INIT);
     machine.addHooks(() => {
         //心跳检测
         if (machine.getCountTime() % 30 === 0) {

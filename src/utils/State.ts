@@ -3,8 +3,7 @@ import StateMachine from "./StateMachine";
 abstract class AbstractState {
     abstract name: string;
     onEnd() {}
-    onEnter() {
-    }
+    onEnter() {}
     onUpdate() {
         StateMachine.execHooks();
     }
@@ -16,6 +15,7 @@ export enum StateEnum {
     PAY = "pay",
     CLAIM = "claim",
     SEARCH = "search",
+    RECEIVE = "receive",
 }
 
 export default AbstractState;
