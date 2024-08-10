@@ -7,17 +7,24 @@ class ClaimState extends State {
     onUpdate() {
         super.onUpdate();
         // 刚进来发现在已参与
-        let UI = findObjects([text("参与成功 等待开奖"), text("活动已结束"), textContains("还需看")]);
+        let UI = findObjects([text("参与成功 等待开奖"), textContains("还需看")]);
         if (UI) {
             console.log("已参与");
             back();
             StateMachine.pushState(StateEnum.CHECK);
             return;
         }
+        let end = findObjects([text("活动已结束")]);
+        if (end) {
+            console.log("已参与");
+            back();
+            StateMachine.pushState(StateEnum.INIT);
+            return;
+        }
 
-        let needMoney = findObjects([text("加入粉丝团（1钻）")]);
+        let needMoney = findObjects([textContains("加入粉丝团（1钻")]);
         if (needMoney) {
-          back();
+            back();
             StateMachine.pushState(StateEnum.SEARCH);
             return;
         }
@@ -66,10 +73,7 @@ class ClaimState extends State {
                         return +price < 1;
                     }
                 }
-                back();
-                nextPage();
-                StateMachine.pushState(StateEnum.INIT);
-                return false;
+                return true;
             })
             .next(() => {
                 const UiObject = findObjects([
@@ -86,7 +90,7 @@ class ClaimState extends State {
                 }
                 const joined = findObjects([text("参与成功 等待抽奖")]);
                 if (joined) {
-                    console.log("参与了")
+                    console.log("参与了");
                     StateMachine.pushState(StateEnum.CHECK);
                     return false;
                 }
