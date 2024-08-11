@@ -2,6 +2,7 @@ import { nextPage, randomClick } from "@/utils/action";
 import State, { StateEnum } from "../../utils/State";
 import StateMachine from "../../utils/StateMachine";
 import { doListBuilder, findObjects, findObjectsThen } from "../../utils/findPic";
+import { props } from "../props";
 class ClaimState extends State {
     name = StateEnum.CLAIM;
     onUpdate() {
@@ -22,7 +23,7 @@ class ClaimState extends State {
             return;
         }
 
-        let needMoney = findObjects([textContains("加入粉丝团（1钻")]);
+        let needMoney = findObjects([textContains("钻")]);
         if (needMoney) {
             back();
             StateMachine.pushState(StateEnum.SEARCH);
@@ -70,6 +71,7 @@ class ClaimState extends State {
                     const idx = content.indexOf("参");
                     if (idx > -1) {
                         let price = content.substring(1, idx);
+                        props.peopleCount
                         return +price < 1;
                     }
                 }
